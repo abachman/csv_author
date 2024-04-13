@@ -1,13 +1,12 @@
-# frozen_string_literal: true
+require "spec_helper"
 
 RSpec.describe CsvAuthor do
-  it "has a version number" do
-    expect(CsvAuthor::VERSION).not_to be nil
-  end
-
   describe ".file" do
     it "builds a file" do
-      file = described_class.file {}
+      file = described_class.file do
+        # file with nothing
+      end
+
       expect(file).to be_a(CsvAuthor::File)
     end
 
@@ -16,7 +15,7 @@ RSpec.describe CsvAuthor do
         headers :name, :age
       end
 
-      expect(file.headers.map(&:name)).to eq(%i[name age])
+      expect(file).to have_headers(%i[name age])
     end
 
     it "allows defining headers in block" do
@@ -27,7 +26,7 @@ RSpec.describe CsvAuthor do
         end
       end
 
-      expect(file.headers.map(&:name)).to eq(%i[name age])
+      expect(file).to have_headers(%i[name age])
     end
 
     it "defines grouped headers" do
@@ -45,7 +44,7 @@ RSpec.describe CsvAuthor do
         end
       end
 
-      expect(file.headers.map(&:name)).to eq(
+      expect(file).to have_headers(
         %i[account_name account_email address_street address_city]
       )
     end

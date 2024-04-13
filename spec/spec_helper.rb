@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "csv_author"
+require_relative "support/matchers"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
